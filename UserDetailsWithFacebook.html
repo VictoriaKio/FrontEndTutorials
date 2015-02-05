@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<!--SummaryNotes:the code has no error but there is no output, you need to put the FB.Event in the window.fbAsyncInit function-->
+
+<div id="fb-root"></div>  
+
+<script>
+  window.fbAsyncInit = function() 
+  {
+    FB.init({
+      appId      : '1380841182228620',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+
+  FB.Event.subscribe('auth.authResponseChange', 
+  function(response)
+  {
+    if (response.status === 'connected')
+      {
+        testAPI();
+      }
+    else if (response.status==='not_authorized')
+      {
+        FB.login();
+      }
+    else
+      {
+        FB.login;
+      }
+  });
+};
+
+<!--The other part of the facebook generated SDK APD ID-->
+  //(function(d, s, id){
+     //var js, fjs = d.getElementsByTagName(s)[0];
+     //if (d.getElementById(id)) {return;}
+     //js = d.createElement(s); js.id = id;
+     //js.src = "//connect.facebook.net/en_US/sdk.js";
+    // fjs.parentNode.insertBefore(js, fjs);
+   //}(document, 'script', 'facebook-jssdk'));-->
+
+(function(d)
+{
+  //Variables defined
+  var js, id='facebook-jssdk', ref=d.getElementsByTagName('script')[0];
+
+  if (d.getElementById(id))
+  {
+    return;
+  }
+  js=d.createElement('script');
+  js.id=id;
+  js.async=true;
+  js.source="//connect.facebook.net/en_US/all.js";
+  ref.parentNode.insertBefore(js,ref);
+}(document));
+
+function testAPI(){
+FB.api('/me',function(response){
+  document.getElementById('welcome').innerHTML='Good to see you,' +response.name+'.';
+});
+}
+</script>
+<fb:login-button show-faces="true" width="200" max-rows"1"></fb:login-button>
+<div id="welcome"></div>
+
+<!--Test your Facebook Integration-->
+<!--<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">-->
+</div>
+</body>
+</html>
